@@ -1,0 +1,9 @@
+<form action="<%= user_url(@user) %>" method="POST" accept-charset="utf-8">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <input type="hidden" name="_method" value="PATCH">
+
+  <label for="password">Password</label>
+  <input type="password" name="user[password]" id="password">
+
+  <p><input type="submit" value="Continue &rarr;"></p>
+</form>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Social</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<% if logged_in? %>
+  <%= current_user.email %>
+  <br>
+  <%= button_to "Log out", session_url, method: :delete %>
+<% else %>
+  <%= link_to "Sign in", new_session_url %>
+  <%= link_to "Sign up", new_user_url %>
+<% end %>
+
+<br>
+
+<% if flash.now[:errors] %>
+<ul>
+  <% flash[:errors].each do |error| %>
+    <li><%= error%></li>
+  <% end %>
+</ul>
+<% end %>
+
+<%= yield %>
+
+</body>
+</html>

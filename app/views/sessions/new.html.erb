@@ -1,0 +1,15 @@
+<h1>Log In</h1>
+
+<form action="<%= session_url %>" method="POST" accept-charset="utf-8">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+  <label for="email">Email</label>
+  <input type="text" name="user[email]" id="email">
+
+  <label for="password">Password</label>
+  <input type="password" name="user[password]" value="" id="password">
+
+  <p><input type="submit" value="Continue &rarr;"></p>
+</form>
+
+<%= link_to "Forgot Password?", new_reset_password_url %>
