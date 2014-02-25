@@ -5,6 +5,16 @@ class User < ActiveRecord::Base
   validates :email, :token, :password_digest, presence: true
   validates :password, length: { minimum: 6, allow_nil: true }
 
+  has_many :friend_circles, inverse_of: :user
+
+  has_many :circle_memberships, inverse_of: :user
+  has_many :friend_circle_memberships, through: :circle_memberships, source: :friend_circle
+  has_many :post_shares, through: :friend_circle_memberships, source: :post_shares
+  has_many :shared_posts, through: :post_shares, source: :post
+
+  has_many :friends, through: :friend_circles, source: :users
+  has_many :posts
+
   def password=(secret)
     @password = secret
     self.password_digest = BCrypt::Password.create(secret)

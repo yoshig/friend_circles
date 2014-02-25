@@ -11,10 +11,61 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140224183632) do
+ActiveRecord::Schema.define(version: 20140225011050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "circle_memberships", force: true do |t|
+    t.integer  "friend_circle_id", null: false
+    t.integer  "user_id",          null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "circle_memberships", ["friend_circle_id"], name: "index_circle_memberships_on_friend_circle_id", using: :btree
+  add_index "circle_memberships", ["user_id"], name: "index_circle_memberships_on_user_id", using: :btree
+
+  create_table "friend_circles", force: true do |t|
+    t.string   "name",       null: false
+    t.integer  "user_id",    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "friend_circles", ["user_id"], name: "index_friend_circles_on_user_id", using: :btree
+
+  create_table "links", force: true do |t|
+    t.integer  "post_id",    null: false
+    t.string   "url",        null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "post_shares", force: true do |t|
+    t.integer  "post_id",          null: false
+    t.integer  "friend_circle_id", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "posts", force: true do |t|
+    t.integer  "user_id",    null: false
+    t.string   "body",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
+
+  create_table "upvotes", force: true do |t|
+    t.integer  "post_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "upvotes", ["post_id", "user_id"], name: "index_upvotes_on_post_id_and_user_id", unique: true, using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",           null: false

@@ -52,3 +52,5 @@ group :development do
   gem 'binding_of_caller'
   gem 'letter_opener'
 end
+
+gem 'kaminari'

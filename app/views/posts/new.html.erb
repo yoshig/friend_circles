@@ -1,0 +1,13 @@
+<form action="<%= user_posts_url(current_user) %>" method="POST" accept-charset="utf-8">
+
+  <%= render 'shared/post_form', post: @post %>
+  <% current_user.friend_circles.each do |friend_circle| %>
+    <label for="<%= friend_circle.name %>"><%= friend_circle.name %></label>
+    <input type="checkbox"
+           name="post[friend_circle_ids][]"
+           value="<%= friend_circle.id %>"
+           id="<%= friend_circle.name %>">
+  <% end %>
+
+  <p><input type="submit" value="Continue &rarr;"></p>
+</form>

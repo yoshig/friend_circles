@@ -1,0 +1,30 @@
+<% if action == "POST" %>
+  <% url = user_friend_circles_url(current_user) %>
+<% else %>
+ <% url = user_friend_circle_url(current_user, friend_circle) %>
+<% end %>
+
+<form action="<%= url %>" method="POST" accept-charset="utf-8">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <input type="hidden" name="_method" value="<%= action %>">
+
+  <label for="name">Name:</label>
+  <input type="text"
+         name="friend_circle[name]"
+         value="<%= friend_circle.name %>"
+         id="name">
+  <br>
+
+  <input type="hidden" name="friend_circle[user_ids][]" value="">
+  <% User.all.each do |user| %>
+  <label for="<%= user.email %>"><%= user.email %></label>
+  <input type="checkbox"
+         name="friend_circle[user_ids][]"
+         value="<%= user.id %>"
+         id="<%= user.email %>"
+         <%= "checked" if friend_circle.users.include?(user) %>>
+   <br>
+  <% end %>
+
+  <p><input type="submit" value="Continue &rarr;"></p>
+</form>

@@ -1,0 +1,11 @@
+<h1>All Friend Circles</h1>
+
+<ul>
+  <% current_user.friend_circles.each do |fc| %>
+  <li>
+    <%= link_to fc.name, friend_circle_url(fc) %>
+  </li>
+  <% end %>
+</ul>
+
+<%= link_to "New Friend Circle", new_user_friend_circle_url(current_user) %>

@@ -1,0 +1,11 @@
+<h1>All Your Posts</h1>
+
+<ul>
+  <% current_user.posts.each do |post| %>
+    <li>
+      <%= link_to post.body, post_url(post) %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "New Post", new_user_post_url(current_user) %>

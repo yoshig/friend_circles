@@ -1,0 +1,10 @@
+<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+<label for="post_body">Post body</label>
+<input type="textarea" name="post[body]" value="<%= post.body %>" id="post_body">
+<br>
+<% post.links.each_with_index do |link, i| %>
+  <label for="link_url">Link URL</label>
+  <input type="text" name="link[<%= i %>][url]" value="<%= link.url %>" id="link_url">
+  <br>
+<% end %>

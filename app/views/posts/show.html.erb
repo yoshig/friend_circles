@@ -1,0 +1,14 @@
+<p><%= @post.body %></p>
+
+<ul>
+  <% @post.links.each do |link| %>
+    <li><%= link_to link.url, link.url %></li>
+  <% end %>
+</ul>
+
+
+<% existing_vote = Upvote.where(user_id: current_user.id, post_id: @post.id) %>
+<% text = existing_vote.empty? ? "Upvote" : "Unvote" %>
+
+<%= button_to text, post_upvote_url(@post), method: :get %>
+Total upvotes: <%= Upvote.where(post_id: @post.id).count %>

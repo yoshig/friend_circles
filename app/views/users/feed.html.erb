@@ -1,0 +1,11 @@
+
+<%= paginate @posts %>
+<ul>
+  <% @posts.each do |post| %>
+    <li>
+      <%= link_to post.body, post_url(post) %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "Create a new post", new_user_post_url(current_user) %>

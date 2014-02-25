@@ -7,7 +7,10 @@ class ResetPasswordsController < ApplicationController
     user = User.find_by(email: params[:email])
 
     if user
-      UserMailer.reset_password_email(user).deliver!
+      new_password = SecureRandom.urlsafe_base64
+      user.password=(new_password)
+      user.save
+      UserMailer.reset_password_email(user, new_password).deliver!
       redirect_to '/'
     else
       flash.now[:errors] = ["Couldn't find user with that email"]
@@ -16,6 +19,6 @@ class ResetPasswordsController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:user_id])
+    authorized? ? render "edit" : redirect_to new_session_url
   end
 end
